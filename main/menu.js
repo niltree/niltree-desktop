@@ -45,25 +45,25 @@ exports.innerMenu = async function(app, tray, windows) {
         {
           label: config.user.username ? 'Change Username' : 'Set Username',
           click() {
-            shell.openExternal('https://zeit.co/account')
+            shell.openExternal('https://niltree.com/account')
           }
         },
         {
           label: 'Billing',
           click() {
-            shell.openExternal('https://zeit.co/account/billing')
+            shell.openExternal('https://niltree.com/account/billing')
           }
         },
         {
           label: 'Plan',
           click() {
-            shell.openExternal('https://zeit.co/account/plan')
+            shell.openExternal('https://niltree.com/account/plan')
           }
         },
         {
           label: 'API Tokens',
           click() {
-            shell.openExternal('https://zeit.co/account/tokens')
+            shell.openExternal('https://niltree.com/account/tokens')
           }
         },
         {
@@ -81,13 +81,13 @@ exports.innerMenu = async function(app, tray, windows) {
     {
       label: 'Support',
       click() {
-        shell.openExternal('https://zeit.chat')
+        shell.openExternal('https://niltree-slack.now.sh')
       }
     },
     {
       label: 'Documentation',
       click() {
-        shell.openExternal('https://zeit.co/docs')
+        shell.openExternal('https://niltree.com/docs')
       }
     },
     {

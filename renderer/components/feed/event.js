@@ -94,7 +94,7 @@ class EventMessage extends PureComponent {
     const { deploymentUrl, url } = content.payload
     const host = deploymentUrl || url
 
-    return `https://zeit.co/deployments/${host}`
+    return `https://niltree.com/deployments/${host}`
   }
 
   componentDidMount() {

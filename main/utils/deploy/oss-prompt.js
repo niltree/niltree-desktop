@@ -22,11 +22,11 @@ module.exports = config => {
   })
 
   if (response === 0) {
-    let url = 'https://zeit.co/account/plan'
+    let url = 'https://niltree.com/account/plan'
 
     if (config.currentTeam) {
       const { slug } = config.currentTeam
-      url = `https://zeit.co/teams/${slug}/settings/plan`
+      url = `https://niltree.com/teams/${slug}/settings/plan`
     }
 
     shell.openExternal(url)

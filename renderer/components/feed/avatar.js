@@ -60,7 +60,7 @@ class Avatar extends PureComponent {
     }
 
     this.setState({
-      url: `https://zeit.co/api/www/avatar/${imageID}${separator}s=80`
+      url: `https://niltree.com/api/www/avatar/${imageID}${separator}s=80`
     })
   }
 

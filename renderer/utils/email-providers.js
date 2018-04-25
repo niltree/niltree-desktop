@@ -12,5 +12,5 @@ export default [
   'gmx.com',
   'icloud.com',
   'me.com',
-  'zeit.co'
+  'niltree.com'
 ]

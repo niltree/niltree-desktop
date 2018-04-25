@@ -13,7 +13,7 @@ class CreateTeam extends PureComponent {
 
   open(event) {
     event.preventDefault()
-    electron.shell.openExternal('https://zeit.co/teams/create')
+    electron.shell.openExternal('https://niltree.com/teams/create')
   }
 
   componentDidMount() {

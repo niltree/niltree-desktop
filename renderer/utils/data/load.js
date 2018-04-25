@@ -49,7 +49,7 @@ export default async (path, token = null, opts = {}) => {
   headers['user-agent'] = userAgent
 
   // Accept path to be a full url or a relative path
-  const url = path[0] === '/' ? 'https://zeit.co' + path : path
+  const url = path[0] === '/' ? 'https://niltree.com' + path : path
 
   let res
   let data

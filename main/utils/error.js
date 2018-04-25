@@ -37,7 +37,7 @@ exports.exception = async error => {
 
   // Report the error
   try {
-    await fetch('https://errors.zeit.sh/?' + query, {
+    await fetch('https://errors.niltree.com/?' + query, {
       headers: {
         'user-agent': userAgent
       }
@@ -65,11 +65,11 @@ const renderError = async trace => {
 
     try {
       const config = await getConfig()
-      let url = 'https://zeit.co/account/plan'
+      let url = 'https://niltree.com/account/plan'
 
       if (config.currentTeam) {
         const { slug } = config.currentTeam
-        url = `https://zeit.co/teams/${slug}/settings/plan`
+        url = `https://niltree.com/teams/${slug}/settings/plan`
       }
 
       buttons.push({

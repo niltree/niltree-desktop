@@ -7,7 +7,7 @@ const { error: handleError } = require('./error')
 const { removeConfig, getConfig } = require('./config')
 const userAgent = require('./user-agent')
 
-const endpoint = 'https://zeit.co/api/user/tokens/'
+const endpoint = 'https://niltree.com/api/user/tokens/'
 
 const requestHeaders = token => ({
   headers: {

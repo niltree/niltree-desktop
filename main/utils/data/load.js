@@ -10,7 +10,7 @@ const NETWORK_ERR_MESSAGE = 'A network error has occurred. Please retry'
 
 module.exports = async (path, token) => {
   const headers = {}
-  const url = `https://zeit.co/${path}`
+  const url = `https://niltree.com/${path}`
 
   headers.Authorization = `bearer ${token}`
   headers['user-agent'] = userAgent
