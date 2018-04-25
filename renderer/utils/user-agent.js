@@ -2,15 +2,15 @@
 import uaParser from 'ua-parser-js'
 
 const regexps = {
-  program: [[/\b(now)\b/i, 'name'], [/\b(\d+\.\d+\.\d+)\b/, 'version']],
+  program: [[/\b(niltree)\b/i, 'name'], [/\b(\d+\.\d+\.\d+)\b/, 'version']],
   engine: [[/\b(node)-v(\d+\.\d+\.\d+)\b/i, 'name', 'version']],
   os: [[/\b(darwin|win32|linux|freebsd|sunos)\b/, 'name']],
   cpu: [[/\b(arm|ia32|x64)\b/, 'architecture']]
 }
 
-const isNowCLI = ua => ua.startsWith('now')
+const isNiltreeCLI = ua => ua.startsWith('niltree')
 
-const parseNowCLI = ua => {
+const parseNiltreeCLI = ua => {
   const parsed = { ua }
 
   Object.keys(regexps).forEach(p1 => {
@@ -31,8 +31,8 @@ const parseNowCLI = ua => {
 export default ua => {
   const parsed = uaParser(ua)
 
-  if (!parsed.browser.name && isNowCLI(ua)) {
-    return parseNowCLI(ua)
+  if (!parsed.browser.name && isNiltreeCLI(ua)) {
+    return parseNiltreeCLI(ua)
   }
 
   return parsed

@@ -49,7 +49,7 @@ setLoggedInStatus()
 const { app } = electron
 
 // Set the application's name
-app.setName('Now')
+app.setName('Niltree')
 
 // Handle uncaught exceptions
 process.on('uncaughtException', handleException)
@@ -62,7 +62,7 @@ if (isDev && process.platform === 'darwin') {
   app.dock.hide()
 }
 
-// Make Now start automatically on login
+// Make Niltree start automatically on login
 if (!isDev && firstRun()) {
   app.setLoginItemSettings({
     openAtLogin: true
@@ -163,7 +163,7 @@ app.on('ready', async () => {
   // Make the window instances accessible from everywhere
   global.windows = windows
 
-  // Listen to changes inside .now.json
+  // Listen to changes inside .niltree.json
   // This needs to be called AFTER setting global.windows
   await watchConfig()
 
@@ -191,7 +191,7 @@ app.on('ready', async () => {
     toggleWindow(event || null, windows.tutorial)
   }
 
-  // Only allow one instance of Now running
+  // Only allow one instance of Niltree running
   // at the same time
   const shouldQuit = app.makeSingleInstance(toggleActivity)
 

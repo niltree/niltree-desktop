@@ -26,7 +26,7 @@ export default class Login extends Message {
     if (userAgent) {
       from = userAgent.browser
         ? userAgent.browser.name
-        : userAgent.program ? 'Now CLI' : null
+        : userAgent.program ? 'Niltree' : null
       os = osNames[userAgent.os.name] || userAgent.os.name
     } else {
       from = payload.env
@@ -34,7 +34,7 @@ export default class Login extends Message {
     }
 
     if (userAgent.ua.includes('Electron/')) {
-      from = 'Now Desktop'
+      from = 'Niltree Desktop'
     }
 
     let message = 'logged in'

@@ -25,7 +25,7 @@ exports.tutorialWindow = tray => {
   const win = new electron.BrowserWindow({
     width: 650,
     height: 430,
-    title: 'Welcome to Now',
+    title: 'Welcome to Niltree',
     resizable: false,
     center: true,
     frame: false,
@@ -71,7 +71,7 @@ exports.aboutWindow = tray => {
   const win = new electron.BrowserWindow({
     width: 360,
     height: 408,
-    title: 'About Now',
+    title: 'About Niltree',
     resizable: false,
     center: true,
     show: false,
@@ -103,7 +103,7 @@ exports.mainWindow = tray => {
   const win = new electron.BrowserWindow({
     width: 330,
     height: windowHeight,
-    title: 'Now',
+    title: 'Niltree',
     resizable: false,
     show: false,
     fullscreenable: false,

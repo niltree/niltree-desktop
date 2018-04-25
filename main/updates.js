@@ -27,7 +27,7 @@ const isCanary = async () => {
 // return `null`. In all other cases, an error
 // will be thrown leading to a retry.
 const localBinaryVersion = async () => {
-  // We need to modify the `cwd` to prevent the app itself (Now.exe) to be
+  // We need to modify the `cwd` to prevent the app itself (Niltree.exe) to be
   // executed on Windows. On other platforms this shouldn't produce side effects.
   const fullPath = binaryUtils.getFile()
 
@@ -84,7 +84,7 @@ const updateBinary = async config => {
   const currentRemote = remote.version
   const currentLocal = await localBinaryVersion()
 
-  // Force an update if "now -v" fails
+  // Force an update if "niltree -v" fails
   if (currentLocal) {
     const comparision = semVer.compare(currentLocal, currentRemote)
 
@@ -100,7 +100,7 @@ const updateBinary = async config => {
     // because the status of the checkbox wasn't yet passed on.
 
     // In turn, we need to stop here. Otherwise we install
-    // Now CLI even though the user might not want it.
+    // Niltree even though the user might not want it.
     return
   }
 
@@ -126,9 +126,9 @@ const updateBinary = async config => {
   const newVersion = await localBinaryVersion()
 
   notify({
-    title: 'Updated Now CLI to Version ' + newVersion,
+    title: 'Updated Niltree to Version ' + newVersion,
     body: 'Try it in your terminal or click to see what has changed.',
-    url: 'https://github.com/zeit/now-cli/releases/tag/' + newVersion
+    url: 'https://github.com/niltree/niltree/releases/tag/' + newVersion
   })
 }
 
@@ -166,7 +166,7 @@ const setUpdateURL = async () => {
   const { platform } = process
 
   const channel = (await isCanary()) ? 'releases-canary' : 'releases'
-  const feedURL = `https://now-desktop-${channel}.zeit.sh/update/${platform}`
+  const feedURL = `https://niltree.com/update/niltree-desktop-${channel}-${platform}`
 
   try {
     autoUpdater.setFeedURL(feedURL + '/' + app.getVersion())

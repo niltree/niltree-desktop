@@ -176,7 +176,7 @@ class Title extends PureComponent {
 
         <section className="update-message">
           <Done />
-          <p>Context updated for Now CLI!</p>
+          <p>Context updated for Niltree CLI!</p>
         </section>
 
         {this.renderTypeFilter()}

@@ -76,12 +76,12 @@ const asAbsolute = function(path, parent) {
 
 async function staticFiles(
   path,
-  nowConfig = {},
-  { limit = null, hasNowJson = false, debug = false } = {}
+  niltreeConfig = {},
+  { limit = null, hasNiltreeJson = false, debug = false } = {}
 ) {
   if (await isFile(path)) return [path]
 
-  const whitelist = nowConfig.files
+  const whitelist = niltreeConfig.files
 
   // The package.json `files` whitelist still
   // honors ignores: https://docs.npmjs.com/files/package.json#files
@@ -106,7 +106,7 @@ async function staticFiles(
   // The package.json `files` whitelist still
   // honors npmignores: https://docs.npmjs.com/files/package.json#files
   // but we don't ignore if the user is explicitly listing files
-  // under the now namespace, or using files in combination with gitignore
+  // under the niltree namespace, or using files in combination with gitignore
   const accepts = file => {
     const relativePath = file.substr(prefixLength)
 
@@ -136,8 +136,8 @@ async function staticFiles(
     console.timeEnd(`> [debug] locating files ${path}`)
   }
 
-  if (hasNowJson) {
-    files.push(asAbsolute('now.json', path))
+  if (hasNiltreeJson) {
+    files.push(asAbsolute('niltree.json', path))
   }
 
   // Get files
@@ -160,10 +160,10 @@ async function staticFiles(
 async function npm(
   path,
   pkg = {},
-  nowConfig = {},
-  { limit = null, hasNowJson = false, debug = false } = {}
+  niltreeConfig = {},
+  { limit = null, hasNiltreeJson = false, debug = false } = {}
 ) {
-  const whitelist = nowConfig.files || pkg.files
+  const whitelist = niltreeConfig.files || pkg.files
 
   // The package.json `files` whitelist still
   // honors ignores: https://docs.npmjs.com/files/package.json#files
@@ -192,9 +192,9 @@ async function npm(
   // The package.json `files` whitelist still
   // honors npmignores: https://docs.npmjs.com/files/package.json#files
   // but we don't ignore if the user is explicitly listing files
-  // under the now namespace, or using files in combination with gitignore
+  // under the niltree namespace, or using files in combination with gitignore
   const overrideIgnores =
-    (pkg.now && pkg.now.files) || (gitIgnore !== null && pkg.files)
+    (pkg.niltree && pkg.niltree.files) || (gitIgnore !== null && pkg.files)
   const accepts = overrideIgnores
     ? () => true
     : file => {
@@ -230,8 +230,8 @@ async function npm(
   // source: https://docs.npmjs.com/files/package.json#files
   files.push(asAbsolute('package.json', path))
 
-  if (hasNowJson) {
-    files.push(asAbsolute('now.json', path))
+  if (hasNiltreeJson) {
+    files.push(asAbsolute('niltree.json', path))
   }
 
   // Get files
@@ -253,13 +253,13 @@ async function npm(
 
 async function docker(
   path,
-  nowConfig = {},
-  { limit = null, hasNowJson = false, debug = false } = {}
+  niltreeConfig = {},
+  { limit = null, hasNiltreeJson = false, debug = false } = {}
 ) {
-  const whitelist = nowConfig.files
+  const whitelist = niltreeConfig.files
 
   // Base search path
-  // the now.json `files` whitelist still
+  // the niltree.json `files` whitelist still
   // honors ignores: https://docs.npmjs.com/files/package.json#files
   const search_ = whitelist || ['.']
 
@@ -311,8 +311,8 @@ async function docker(
   // source: https://docs.npmjs.com/files/package.json#files
   files.push(asAbsolute('Dockerfile', path))
 
-  if (hasNowJson) {
-    files.push(asAbsolute('now.json', path))
+  if (hasNiltreeJson) {
+    files.push(asAbsolute('niltree.json', path))
   }
 
   // Get files

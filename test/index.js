@@ -16,7 +16,7 @@ const fkill = require('fkill')
 const changeWindow = require('./helpers/switch')
 const getRandom = require('./helpers/random')
 
-const configDir = resolve(homedir(), '.now')
+const configDir = resolve(homedir(), '.niltree')
 
 const configFiles = {
   auth: resolve(configDir, 'auth.json'),
@@ -24,17 +24,17 @@ const configFiles = {
 }
 
 test.before(async t => {
-  let suffix = '../dist/mac/Now.app/Contents/MacOS/Now'
+  let suffix = '../dist/mac/Niltree.app/Contents/MacOS/Niltree'
   let configContent
 
   if (process.platform === 'win32') {
-    suffix = '../dist/win-unpacked/Now.exe'
+    suffix = '../dist/win-unpacked/Niltree.exe'
   }
 
   // Close the existing app
   if (!process.env.CI) {
     try {
-      await fkill('Now')
+      await fkill('Niltree')
     } catch (err) {}
   }
 
@@ -121,7 +121,7 @@ test('log in properly', async t => {
   await Promise.all(movers)
 
   const id = randomBytes(20).toString('hex')
-  const email = `now-desktop-${id}@zeit.pub`
+  const email = `niltree-desktop-${id}@niltree.pub`
 
   await client.setValue(selector, email)
   await client.keys('Enter')
@@ -159,7 +159,7 @@ test('open the event feed', async t => {
   await client.waitForExist(event, ms('10s'))
 
   const content = await client.getText(event)
-  t.true(content.includes('You logged in from Now Desktop'))
+  t.true(content.includes('You logged in from Niltree Desktop'))
 })
 
 test('switch the event group', async t => {
@@ -193,7 +193,7 @@ test('search for something', async t => {
   await client.waitForExist(event, ms('10s'))
 
   const content = await client.getText(event)
-  const text = `You logged in from Now Desktop`
+  const text = `You logged in from Niltree Desktop`
 
   if (Array.isArray(content)) {
     t.truthy(content.find(item => item.includes(text)))

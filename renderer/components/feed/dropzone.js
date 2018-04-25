@@ -54,7 +54,7 @@ class DropZone extends PureComponent {
           <span>
             <h1>Drop to Deploy</h1>
             <p>
-              Your files will be uploaded to <b>Now</b>.
+              Your files will be uploaded to <b>Niltree</b>.
             </p>
           </span>
         </section>

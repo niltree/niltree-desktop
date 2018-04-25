@@ -1,13 +1,13 @@
 {
-  "name": "now-desktop",
-  "productName": "Now",
-  "description": "Create deployments right from the tray menu",
-  "version": "4.0.0-canary.36",
+  "name": "niltree-desktop",
+  "productName": "Niltree",
+  "description": "fast Javascript web browser for AR, VR, and WebG",
+  "version": "0.0.0",
   "author": {
-    "name": "Zeit, Inc.",
-    "email": "team@zeit.co"
+    "name": "Shawn Presser",
+    "email": "shawnpresser@gmail.com"
   },
-  "repository": "zeit/now-desktop",
+  "repository": "niltree/niltree-desktop",
   "main": "main/index.js",
   "scripts": {
     "start": "electron main",
@@ -20,7 +20,7 @@
     "test-integration": "ava -s"
   },
   "build": {
-    "appId": "co.zeit.now",
+    "appId": "com.niltree.app",
     "files": [
       "**/*",
       "!renderer",

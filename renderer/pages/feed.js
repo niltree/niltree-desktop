@@ -363,7 +363,7 @@ class Feed extends Component {
     }
 
     // Update the `currentUser` state to reflect
-    // switching the account using `now login`
+    // switching the account using `niltree login`
     this.ipcRenderer.on('config-changed', (event, config) => {
       const { user } = config
 
@@ -754,7 +754,7 @@ class Feed extends Component {
             isUser={isUser}
             setTypeFilter={this.setTypeFilter}
           >
-            {activeScope ? activeScope.name : 'Now'}
+            {activeScope ? activeScope.name : 'Niltree'}
           </Title>
 
           {this.state.dropZone && <DropZone hide={this.hideDropZone} />}

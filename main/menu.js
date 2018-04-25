@@ -124,7 +124,7 @@ exports.innerMenu = async function(app, tray, windows) {
           }
         },
         {
-          label: 'Auto-Update Now CLI',
+          label: 'Auto-Update Niltree',
           type: 'checkbox',
           checked: updateCLI,
           click() {

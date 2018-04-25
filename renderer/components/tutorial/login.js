@@ -36,7 +36,7 @@ class LoginForm extends PureComponent {
       token
     }
 
-    const apiURL = url + '/now/registration/verify?' + stringifyQuery(query)
+    const apiURL = url + '/niltree/registration/verify?' + stringifyQuery(query)
     const userAgent = remote.require('./utils/user-agent')
 
     const res = await fetch(apiURL, {
@@ -60,10 +60,10 @@ class LoginForm extends PureComponent {
 
     const body = JSON.stringify({
       email,
-      tokenName: `Now Desktop on ${host}`
+      tokenName: `Niltree Desktop on ${host}`
     })
 
-    const apiURL = `${url}/now/registration`
+    const apiURL = `${url}/niltree/registration`
 
     const res = await fetch(apiURL, {
       method: 'POST',
@@ -189,7 +189,7 @@ class LoginForm extends PureComponent {
       classes: ['verifying']
     })
 
-    const apiURL = 'https://api.zeit.co'
+    const apiURL = 'https://api.niltree.com'
     const { token, securityCode } = await this.getVerificationData(
       apiURL,
       email,
@@ -228,7 +228,7 @@ class LoginForm extends PureComponent {
       return
     }
 
-    // Also save it to now.json
+    // Also save it to niltree.json
     const { saveConfig, watchConfig } = this.remote.require('./utils/config')
 
     // Load the user's data
@@ -264,7 +264,7 @@ class LoginForm extends PureComponent {
       return
     }
 
-    // Start watching for changes in .now.json
+    // Start watching for changes in .niltree.json
     // This will update the scope in the main window
     watchConfig()
 

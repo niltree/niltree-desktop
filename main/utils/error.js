@@ -29,7 +29,7 @@ exports.exception = async error => {
 
   // Prepare the request query
   const query = queryString.stringify({
-    sender: 'Now Desktop',
+    sender: 'Niltree Desktop',
     name: errorParts.name,
     message: errorParts.message,
     stack: errorParts.stack
@@ -107,7 +107,7 @@ const renderError = async trace => {
     return {
       message: trace.message,
       detail:
-        "Now Desktop wasn't able to parse the response from our servers. Please try again."
+        "Niltree Desktop wasn't able to parse the response from our servers. Please try again."
     }
   }
 

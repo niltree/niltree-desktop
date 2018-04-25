@@ -15,7 +15,7 @@ const Binary = props => (
         onChange={props.onCheckboxChange}
       />
       <label htmlFor="cli">
-        {` Install Now's command-line interface and keep it up-to-date`}
+        {` Install Niltree's command-line interface and keep it up-to-date`}
       </label>
     </p>
 

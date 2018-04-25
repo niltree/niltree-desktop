@@ -25,7 +25,7 @@ const notify = require('../notify')
 const userAgent = require('./user-agent')
 const { saveConfig, getConfig } = require('./config')
 
-// Ensures that the `now.exe` directory is on the user's `PATH`
+// Ensures that the `niltree.exe` directory is on the user's `PATH`
 const ensurePath = async () => {
   if (process.platform !== 'win32') {
     return
@@ -73,32 +73,32 @@ const ensurePath = async () => {
           // Here we use a very clever hack that was developed by igorklopov:
           // When we edit the `PATH` var in the registry, the `explorer.exe` will
           // not be notified of such change. That sid, when we tell the user
-          // to try `now` = require(the command line, it'll not work – `explorer.exe`
+          // to try `niltree` = require(the command line, it'll not work – `explorer.exe`
           // will pass an old PATH value to the `cmd.exe`. To _fix_ that, we use
           //  the `setx` command to set a temporary empty env var. Such command will
           // broadcast all env vars to `explorer.exe` and _fix_ our problem – the
-          // user will now be able to use `now` in the command line right after
+          // user will now be able to use `niltree` in the command line right after
           // the installation.
-          spawnSync('setx', ['NOW_ENSURE_PATH_TMP', '""'])
+          spawnSync('setx', ['NILTREE_ENSURE_PATH_TMP', '""'])
 
           // Here we remove the temporary env var = require(the registry
-          regKey.remove('NOW_ENSURE_PATH_TMP', () => resolve())
+          regKey.remove('NILTREE_ENSURE_PATH_TMP', () => resolve())
         }
       )
     })
   )
 }
 
-// Change the permissions of the `now` binary, so
+// Change the permissions of the `niltree` binary, so
 // that the user can execute it
 const setPermissions = async target => {
   if (process.platform === 'win32') {
     return
   }
 
-  const nowPath = target || exports.getFile()
+  const niltreePath = target || exports.getFile()
   const mode = '0755'
-  const stat = await fs.stat(nowPath)
+  const stat = await fs.stat(niltreePath)
   const current = '0' + (stat.mode & 511).toString(8)
 
   // If the existing mode matches the one we
@@ -111,10 +111,10 @@ const setPermissions = async target => {
   }
 
   try {
-    await fs.chmod(nowPath, mode)
+    await fs.chmod(niltreePath, mode)
   } catch (err) {
-    const command = `chmod ${mode} ${nowPath}`
-    const why = 'To make Now CLI executable.'
+    const command = `chmod ${mode} ${niltreePath}`
+    const why = 'To make Niltree executable.'
 
     await runAsRoot(command, why)
   }
@@ -126,10 +126,10 @@ const platformName = () => {
 
   switch (original) {
     case 'darwin':
-      name = 'now-macos'
+      name = 'niltree-macos'
       break
     case 'win32':
-      name = 'now-win.exe'
+      name = 'niltree-win.exe'
       break
     default:
       name = original
@@ -176,7 +176,7 @@ const installedWithNPM = async () => {
     return false
   }
 
-  const related = packages.find(item => item.name === 'now')
+  const related = packages.find(item => item.name === 'niltree')
 
   if (!related || related.linked === true) {
     return false
@@ -191,17 +191,17 @@ const installedWithNPM = async () => {
 
 const notifySuccessfulInstall = () => {
   notify({
-    title: 'Finished Installing Now CLI',
-    body: 'You can now use `now` from the command line.'
+    title: 'Finished Installing Niltree',
+    body: 'You can now use `niltree` from the command line.'
   })
 }
 
 const getBinarySuffix = () => (process.platform === 'win32' ? '.exe' : '')
 
-// Returns the path in which the `now` binary should be saved
+// Returns the path in which the `niltree` binary should be saved
 exports.getDirectory = () => {
   if (process.platform === 'win32') {
-    const path = `${process.env.LOCALAPPDATA}\\now-cli`
+    const path = `${process.env.LOCALAPPDATA}\\niltree`
     mkdir(path)
     return path
   }
@@ -225,7 +225,7 @@ exports.getFile = () => {
   const destDirectory = exports.getDirectory()
   const suffix = getBinarySuffix()
 
-  return path.join(destDirectory, 'now' + suffix)
+  return path.join(destDirectory, 'niltree' + suffix)
 }
 
 exports.handleExisting = async next => {
@@ -236,7 +236,7 @@ exports.handleExisting = async next => {
   const copyPrefix = isWin ? 'copy /b/v/y' : 'cp -p'
   const copyCommand = `${copyPrefix} ${next} ${destFile}`
 
-  const why = 'To place Now CLI in the correct location.'
+  const why = 'To place Niltree in the correct location.'
 
   try {
     await fs.ensureDir(parent)
@@ -269,7 +269,7 @@ exports.handleExisting = async next => {
 }
 
 exports.getURL = async () => {
-  const url = 'https://now-cli-releases.zeit.sh'
+  const url = 'https://niltree.com/static/releases.json'
   const response = await fetch(url, {
     headers: {
       'user-agent': userAgent

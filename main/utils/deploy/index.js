@@ -38,9 +38,9 @@ const MAX_CONCURRENT = 4
 const IS_WIN = process.platform.startsWith('win')
 const SEP = IS_WIN ? '\\' : '/'
 
-class Now extends EventEmitter {
+class Niltree extends EventEmitter {
   constructor({
-    apiUrl = 'https://api.zeit.co',
+    apiUrl = 'https://api.niltree.com',
     token,
     currentTeam,
     forceNew = false,
@@ -72,8 +72,8 @@ class Now extends EventEmitter {
       description,
       type = 'npm',
       pkg = {},
-      nowConfig = {},
-      hasNowJson = false
+      niltreeConfig = {},
+      hasNiltreeJson = false
     }
   ) {
     this._path = path
@@ -86,27 +86,27 @@ class Now extends EventEmitter {
       console.time('> [debug] Getting files')
     }
 
-    const opts = { debug: this._debug, hasNowJson }
+    const opts = { debug: this._debug, hasNiltreeJson }
     if (type === 'npm') {
-      files = await getNpmFiles(path, pkg, nowConfig, opts)
+      files = await getNpmFiles(path, pkg, niltreeConfig, opts)
 
-      // A `start` or `now-start` npm script, or a `server.js` file
+      // A `start` or `niltree-start` npm script, or a `server.js` file
       // in the root directory of the deployment are required
       if (!hasNpmStart(pkg) && !hasFile(path, files, 'server.js')) {
         const err = new Error(
-          'Missing `start` (or `now-start`) script in `package.json`. ' +
+          'Missing `start` (or `niltree-start`) script in `package.json`. ' +
             'See: https://docs.npmjs.com/cli/start.'
         )
         err.userError = true
         throw err
       }
 
-      engines = nowConfig.engines || pkg.engines
-      forwardNpm = forwardNpm || nowConfig.forwardNpm
+      engines = niltreeConfig.engines || pkg.engines
+      forwardNpm = forwardNpm || niltreeConfig.forwardNpm
     } else if (type === 'static') {
-      files = await getFiles(path, nowConfig, opts)
+      files = await getFiles(path, niltreeConfig, opts)
     } else if (type === 'docker') {
-      files = await getDockerFiles(path, nowConfig, opts)
+      files = await getDockerFiles(path, niltreeConfig, opts)
     }
 
     if (this._debug) {
@@ -135,7 +135,7 @@ class Now extends EventEmitter {
 
     const deployment = await this.retry(async bail => {
       if (this._debug) {
-        console.time('> [debug] v3/now/deployments')
+        console.time('> [debug] v3/niltree/deployments')
       }
 
       // Flatten the array to contain files to sync where each nested input
@@ -169,11 +169,11 @@ class Now extends EventEmitter {
         )
       )
 
-      const res = await this._fetch('/v3/now/deployments', {
+      const res = await this._fetch('/v3/niltree/deployments', {
         method: 'POST',
         body: {
           env,
-          public: wantsPublic || nowConfig.public,
+          public: wantsPublic || niltreeConfig.public,
           forceNew,
           forceSync,
           name,
@@ -186,7 +186,7 @@ class Now extends EventEmitter {
       })
 
       if (this._debug) {
-        console.timeEnd('> [debug] v3/now/deployments')
+        console.timeEnd('> [debug] v3/niltree/deployments')
       }
 
       // No retry on 4xx
@@ -339,7 +339,7 @@ class Now extends EventEmitter {
   }
 
   async remove(deploymentId, { hard }) {
-    const url = `/now/deployments/${deploymentId}?hard=${hard ? '1' : '0'}`
+    const url = `/niltree/deployments/${deploymentId}?hard=${hard ? '1' : '0'}`
 
     await this.retry(async bail => {
       if (this._debug) {
@@ -391,7 +391,7 @@ class Now extends EventEmitter {
 
               if (this._debug) {
                 console.time(
-                  `> [debug] v2/now/files #${attempt} ${names.join(' ')}`
+                  `> [debug] v2/niltree/files #${attempt} ${names.join(' ')}`
                 )
               }
 
@@ -399,20 +399,20 @@ class Now extends EventEmitter {
                 .queue(data)
                 .end()
 
-              const res = await this._fetch('/v2/now/files', {
+              const res = await this._fetch('/v2/niltree/files', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/octet-stream',
                   'Content-Length': data.length,
-                  'x-now-digest': sha,
-                  'x-now-size': data.length
+                  'x-niltree-digest': sha,
+                  'x-niltree-size': data.length
                 },
                 body: stream
               })
 
               if (this._debug) {
                 console.timeEnd(
-                  `> [debug] v2/now/files #${attempt} ${names.join(' ')}`
+                  `> [debug] v2/niltree/files #${attempt} ${names.join(' ')}`
                 )
               }
 
@@ -503,7 +503,7 @@ const createDeployment = async (path, config, multiple, wantsPublic) => {
     return
   }
 
-  const now = new Now({
+  const niltree = new Niltree({
     type,
     token: config.token,
     debug: true,
@@ -528,7 +528,7 @@ const createDeployment = async (path, config, multiple, wantsPublic) => {
 
       do {
         try {
-          await now.create(path, metaData)
+          await niltree.create(path, metaData)
         } catch (err) {
           if (err.code === 'plan_requires_public') {
             return bail(err)
@@ -537,7 +537,7 @@ const createDeployment = async (path, config, multiple, wantsPublic) => {
           throw err
         }
 
-        const { url } = now
+        const { url } = niltree
 
         if (url && !notified) {
           // Open the URL in the default browser
@@ -558,21 +558,21 @@ const createDeployment = async (path, config, multiple, wantsPublic) => {
           notified = true
         }
 
-        if (now.syncFileCount > 0) {
+        if (niltree.syncFileCount > 0) {
           await new Promise(resolve => {
-            now.upload()
+            niltree.upload()
 
-            now.on('upload', ({ names, data }) => {
+            niltree.on('upload', ({ names, data }) => {
               console.log(
                 `> [debug] Uploaded: ${names.join(' ')} (${bytes(data.length)})`
               )
             })
 
-            now.on('complete', resolve)
-            now.on('error', err => handleError(err.message, err))
+            niltree.on('complete', resolve)
+            niltree.on('error', err => handleError(err.message, err))
           })
         }
-      } while (now.syncFileCount > 0)
+      } while (niltree.syncFileCount > 0)
     },
     {
       retries: 5
@@ -633,7 +633,7 @@ module.exports = async paths => {
 }
 
 function hasNpmStart(pkg) {
-  return pkg.scripts && (pkg.scripts.start || pkg.scripts['now-start'])
+  return pkg.scripts && (pkg.scripts.start || pkg.scripts['niltree-start'])
 }
 
 function hasFile(base, files, name) {

@@ -1,20 +1,16 @@
 ![](https://github.com/zeit/art/blob/ae28ead3b4406195f6ec3607eccd7935d0a11c50/now-desktop/repo-banner.png)
 
-[![macOS CI Status](https://circleci.com/gh/zeit/now-desktop.svg?style=shield)](https://circleci.com/gh/zeit/now-desktop)
-[![Windows CI status](https://ci.appveyor.com/api/projects/status/8cgv7c7v45dw82vg?svg=true)](https://ci.appveyor.com/project/zeit/now-desktop)
-[![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/now)
-
-For more details about Now and why you should use it, head to [this page](https://zeit.co/now).
+For more details about Niltree and why you should use it, head to [this page](https://niltree.com/docs).
 
 ## Usage
 
-You can download the latest release [here](https://zeit.co/download).
+You can download the latest release [here](https://niltree.com/download).
 
 If you're using [Homebrew Cask](https://caskroom.github.io), you can install it by running these commands:
 
 ```bash
 brew update
-brew cask install now
+brew cask install niltree
 ```
 
 ## Caught a bug?

@@ -35,7 +35,7 @@ const Filter = ({ background }) => {
         fillRule="evenodd"
       >
         <g
-          id="Now-Desktop"
+          id="Niltree-Desktop"
           transform="translate(-408.000000, -110.000000)"
           stroke="#000"
         >

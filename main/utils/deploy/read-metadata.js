@@ -27,32 +27,32 @@ async function readMetaData(
     }
 
   const pkg = await readJSON(path, 'package.json')
-  let nowConfig = await readJSON(path, 'now.json')
+  let niltreeConfig = await readJSON(path, 'niltree.json')
   const dockerfile = await readDockerfile(path)
 
-  const hasNowJson = Boolean(nowConfig)
+  const hasNiltreeJson = Boolean(niltreeConfig)
 
-  if (pkg && pkg.now) {
-    // If the project has both a `now.json` and `now` Object in the `package.json`
+  if (pkg && pkg.niltree) {
+    // If the project has both a `niltree.json` and `niltree` Object in the `package.json`
     // file, then fail hard and let the user know that they need to pick one or the
     // other
-    if (nowConfig) {
+    if (niltreeConfig) {
       const err = new Error(
-        'You have a `now` configuration field inside `package.json` ' +
-          'but configuration is also present in `now.json`! ' +
+        'You have a `niltree` configuration field inside `package.json` ' +
+          'but configuration is also present in `niltree.json`! ' +
           "Please ensure there's a single source of configuration by removing one."
       )
       err.userError = true
       throw err
     } else {
-      nowConfig = pkg.now
+      niltreeConfig = pkg.niltree
     }
   }
 
   if (!type) {
-    // `now.json` / `pkg.now` get default type preference
-    if (nowConfig) {
-      type = nowConfig.type
+    // `niltree.json` / `pkg.niltree` get default type preference
+    if (niltreeConfig) {
+      type = niltreeConfig.type
     }
 
     // Both `package.json` and `Dockerfile` exist! Prompt the user to pick one.
@@ -79,8 +79,8 @@ async function readMetaData(
     }
   }
 
-  if (!name && nowConfig) {
-    name = nowConfig.name
+  if (!name && niltreeConfig) {
+    name = niltreeConfig.name
   }
 
   if (type === 'npm') {
@@ -128,7 +128,7 @@ async function readMetaData(
     throw new TypeError(`Unsupported "deploymentType": ${type}`)
   }
 
-  // No name in `package.json` / `now.json`, or "name" label in Dockerfile.
+  // No name in `package.json` / `niltree.json`, or "name" label in Dockerfile.
   // Default to the basename of the root dir
   if (!name) {
     name = basename(path)
@@ -151,8 +151,8 @@ async function readMetaData(
     description,
     type,
     pkg,
-    nowConfig,
-    hasNowJson,
+    niltreeConfig,
+    hasNiltreeJson,
     // Legacy
     deploymentType: type
   }

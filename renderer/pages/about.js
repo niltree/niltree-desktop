@@ -55,7 +55,7 @@ class About extends React.PureComponent {
 
     try {
       data = await fetch(
-        'https://api.github.com/repos/zeit/now-desktop/releases'
+        'https://api.github.com/repos/niltree/niltree-desktop/releases'
       )
     } catch (err) {
       console.log(err)
@@ -142,7 +142,7 @@ class About extends React.PureComponent {
 
           <img src="/static/app-icon.png" />
 
-          <h1>Now</h1>
+          <h1>Niltree</h1>
           <h2>
             Version {this.state.version ? <b>{this.state.version}</b> : ''}{' '}
             {this.state.releaseDate ? this.state.releaseDate : ''}
@@ -152,24 +152,14 @@ class About extends React.PureComponent {
             <h1>Authors</h1>
 
             <p>
-              <a href="https://twitter.com/notquiteleo" onClick={this.openLink}>
-                Leo Lamprecht
+              <a href="https://twitter.com/theshawwn" onClick={this.openLink}>
+                Shawn Presser
               </a>
               <br />
-              <a href="https://twitter.com/evilrabbit_" onClick={this.openLink}>
-                Evil Rabbit
+              <a href="https://twitter.com/webmixedreality" onClick={this.openLink}>
+                Avaer Kazmer 
               </a>
               <br />
-              <a href="https://twitter.com/rauchg" onClick={this.openLink}>
-                Guillermo Rauch
-              </a>
-              <br />
-              <a
-                href="https://twitter.com/matheusfrndes"
-                onClick={this.openLink}
-              >
-                Matheus Fernandes
-              </a>
             </p>
 
             <h1>{'3rd party software'}</h1>
@@ -178,17 +168,17 @@ class About extends React.PureComponent {
 
           <span className="copyright">
             Made by{' '}
-            <a href="https://zeit.co" onClick={this.openLink}>
-              ZEIT
+            <a href="https://niltree.com" onClick={this.openLink}>
+              Niltree
             </a>
           </span>
 
           <nav>
-            <a href="https://zeit.co/docs" onClick={this.openLink}>
+            <a href="https://niltree.com/docs" onClick={this.openLink}>
               Docs
             </a>
             <a
-              href="https://github.com/zeit/now-desktop"
+              href="https://github.com/niltree/niltree-desktop"
               onClick={this.openLink}
             >
               Source

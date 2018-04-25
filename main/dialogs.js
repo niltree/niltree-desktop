@@ -16,7 +16,7 @@ exports.runAsRoot = (command, why) => {
 
   const answer = dialog.showMessageBox({
     type: 'question',
-    message: 'Now Needs More Permissions',
+    message: 'Niltree Needs More Permissions',
     detail: why,
     buttons
   })
@@ -28,7 +28,7 @@ exports.runAsRoot = (command, why) => {
 
   return new Promise((resolve, reject) => {
     const options = {
-      name: 'Now',
+      name: 'Niltree',
       icns: resolvePath('./main/static/icons/mac.icns')
     }
 
